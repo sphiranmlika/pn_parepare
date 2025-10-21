@@ -1,0 +1,165 @@
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: #EE9636;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;  /* Kurangi padding untuk mobile */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  height: 80px;
+  transition: padding 0.4s ease, height 0.4s ease;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  gap: 10px;
+}
+
+.logo img {
+  width: 55px;
+  height: 62px;
+  flex-shrink: 0;
+}
+
+.logo-link {
+  text-decoration: none;
+  color: inherit;
+}
+
+.logo-text h1 {
+  font-size: 28px;
+  font-weight: 900;
+  margin: 0;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+  line-height: 1;
+}
+
+.logo-text p {
+  font-size: 12px;
+  margin: 0;
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+}
+
+.nav-menu {
+  display: flex;
+  align-items: center;
+  gap: 35px;
+  list-style: none;
+  transition: all 0.3s ease;
+}
+
+.nav-menu a {
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 16px;
+  padding: 8px 0;
+  transition: all 0.3s ease;
+  opacity: 1;
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+  position: relative;
+}
+
+.nav-menu a:hover {
+  color: #8E2C18;
+}
+
+.login-btn {
+  background-color: white;
+  color: #8E2C18;
+  border: none;
+  padding: 8px 20px;
+  border-radius: 25px;
+  font-weight: 700;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+  margin: 0;
+}
+
+.login-btn:hover {
+  background-color: #8E2C18;
+  color: white;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+.hamburger {
+  display: none;  /* Sembunyikan di desktop */
+  flex-direction: column;
+  justify-content: space-around;
+  width: 30px;
+  height: 25px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+.hamburger span {
+  width: 100%;
+  height: 3px;
+  background-color: white;
+  border-radius: 2px;
+  transition: 0.3s;
+}
+
+.hamburger.active span:nth-child(1) {
+  transform: rotate(-45deg) translate(-5px, 6px);
+}
+
+.hamburger.active span:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger.active span:nth-child(3) {
+  transform: rotate(45deg) translate(-5px, -6px);
+}
+
+/* Media Query untuk Responsive */
+@media (max-width: 768px) {
+  header {
+    padding: 10px 15px;  /* Lebih ringkas */
+    justify-content: space-between;  /* Pastikan logo dan hamburger sejajar */
+  }
+
+  .nav-menu {
+    display: none;  /* Sembunyikan menu secara default di mobile */
+    flex-direction: column;  /* Jadikan vertical */
+    position: absolute;  /* Posisi absolute untuk dropdown */
+    top: 80px;  /* Di bawah header */
+    left: 0;
+    width: 100%;
+    background-color: #EE9636;
+    align-items: center;  /* Center items */
+    gap: 20px;  /* Jarak antar item */
+    padding: 20px 0;  /* Padding untuk menu */
+  }
+
+  .nav-menu.active {
+    display: flex;  /* Tampilkan saat active */
+  }
+
+  .nav-menu a {
+    font-size: 18px;  /* Besarkan font untuk mobile */
+    width: 80%;  /* Lebar link */
+    text-align: center;
+  }
+
+  .login-btn {
+    width: 80%;  /* Lebar button di mobile */
+    margin-top: 10px;
+  }
+
+  .hamburger {
+    display: flex;  /* Tampilkan hamburger di mobile */
+  }
+}

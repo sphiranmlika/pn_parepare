@@ -1,0 +1,31 @@
+<header>
+  <a href="index.html" class="logo-link">
+    <div class="logo">
+      <img src="logo.png" alt="Logo Pengadilan Negeri Parepare" />
+      <div class="logo-text">
+        <h1>SIMAPARE</h1>
+        <p>Sistem Informasi Magang Pengadilan Negeri Parepare</p>
+      </div>
+    </div>
+  </a>
+
+<nav class="nav-menu">
+  <a href="form.html">Daftar Sekarang</a>
+  <a href="informasi.html">Informasi Program</a>
+  <button class="login-btn" onclick="window.location.href='login.html'">Login</button>
+</nav>
+
+
+  <div class="hamburger" onclick="toggleMenu()">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</header>
+
+<script>
+  function toggleMenu() {
+    document.querySelector('.nav-menu').classList.toggle('active');
+    document.querySelector('.hamburger').classList.toggle('active');  // Untuk animasi hamburger
+  }
+</script>

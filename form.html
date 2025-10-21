@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Daftar Sekarang - SIMAPARE</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="stylesheet" href="navbar.css">
+  <link rel="stylesheet" href="form.css" />
+  <link rel="stylesheet" href="footer.css" />
+</head>
+<body>
+
+  <div id="navbar"></div>
+
+  <script>
+    // Memuat navbar
+    fetch('navbar.html')
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('File navbar.html tidak ditemukan! Status: ' + response.status);
+        }
+        return response.text();
+      })
+      .then(data => {
+        document.getElementById("navbar").innerHTML = data;
+        console.log('Navbar dimuat berhasil!');
+      })
+      .catch(error => {
+        console.error('Error saat memuat navbar:', error);
+        document.getElementById("navbar").innerHTML = '<p>Error: Navbar gagal dimuat. Periksa console untuk detail.</p>';
+      });
+
+    function toggleMenu() {
+      document.querySelector('.nav-menu').classList.toggle('active');
+    }
+  </script>
+
+  <!-- FORM SECTION -->
+  <section class="form-section">
+    <div class="form-container">
+      <h2>Daftar Sekarang</h2>
+
+      <form id="daftarForm">
+        <!-- === KATEGORI === -->
+        <h3 class="section-title">Kategori Pelamar</h3>
+        <select id="kategori" required onchange="gantiKategori()">
+          <option value="">Pilih Kategori</option>
+          <option value="siswa">Siswa PKL</option>
+          <option value="mahasiswa">Mahasiswa Magang</option>
+        </select>
+
+        <!-- === INFORMASI PRIBADI === -->
+        <h3 class="section-title">Informasi Pribadi</h3>
+        <div class="form-group full">
+          <label>Nama Lengkap <span class="required">*</span></label>
+          <input type="text" id="nama" placeholder="Masukkan nama lengkap Anda" required>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Alamat Email <span class="required">*</span></label>
+            <input type="email" id="email" placeholder="Masukkan email Anda" required>
+          </div>
+          <div class="form-group">
+            <label>Nomor Telepon <span class="required">*</span></label>
+            <input type="text" id="telepon" placeholder="Masukkan No. Tlp Anda" required>
+          </div>
+        </div>
+
+        <div class="form-group full">
+          <label>Alamat <span class="required">*</span></label>
+          <textarea id="alamat" placeholder="Alamat lengkap, kota, provinsi, kode pos" required></textarea>
+        </div>
+
+        <!-- === FORM SISWA PKL === -->
+        <div id="form-siswa" style="display: none;">
+          <h3 class="section-title">Informasi Sekolah</h3>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Nama Sekolah <span class="required">*</span></label>
+              <input type="text" id="sekolah" placeholder="Nama Sekolah">
+            </div>
+            <div class="form-group">
+              <label>NISN <span class="required">*</span></label>
+              <input type="text" id="nisn" placeholder="Masukkan NISN">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Jurusan <span class="required">*</span></label>
+              <input type="text" id="jurusan" placeholder="Masukkan Jurusan">
+            </div>
+            <div class="form-group">
+              <label>Kelas <span class="required">*</span></label>
+              <select id="kelas">
+                <option value="">Pilih Kelas</option>
+                <option>X</option>
+                <option>XI</option>
+                <option>XII</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- === FORM MAHASISWA MAGANG === -->
+        <div id="form-mahasiswa" style="display: none;">
+          <h3 class="section-title">Informasi Akademik</h3>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Nama Institusi <span class="required">*</span></label>
+              <input type="text" id="institusi" placeholder="Nama Universitas/Perguruan Tinggi">
+            </div>
+            <div class="form-group">
+              <label>NIM <span class="required">*</span></label>
+              <input type="text" id="nim" placeholder="Masukkan NIM">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Program Studi <span class="required">*</span></label>
+              <input type="text" id="prodi" placeholder="Masukkan Program Studi">
+            </div>
+            <div class="form-group">
+              <label>Semester <span class="required">*</span></label>
+              <input type="text" id="semester" placeholder="Semester Saat Ini">
+            </div>
+          </div>
+        </div>
+
+        <!-- === TANGGAL MAGANG === -->
+        <div class="form-row">
+          <div class="form-group">
+            <label>Tanggal Mulai <span class="required">*</span></label>
+            <input type="date" id="mulai" required>
+          </div>
+          <div class="form-group">
+            <label>Tanggal Selesai <span class="required">*</span></label>
+            <input type="date" id="selesai" required>
+          </div>
+        </div>
+
+        <!-- === DOKUMEN === -->
+        <h3 class="section-title">Dokumen Persyaratan</h3>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Pas Foto <span class="required">*</span></label>
+            <input type="file" id="foto" accept="image/*" required>
+            <span id="foto-name" class="file-name"></span>
+          </div>
+          <div class="form-group">
+            <label>Surat Rekomendasi <span class="required">*</span></label>
+            <input type="file" id="surat" accept=".pdf" required>
+            <span id="surat-name" class="file-name"></span>
+          </div>
+        </div>
+
+        <button type="submit" class="submit-btn">KIRIM</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- === SCRIPT === -->
+  <script>
+    function gantiKategori() {
+      const kategori = document.getElementById("kategori").value;
+      const formSiswa = document.getElementById("form-siswa");
+      const formMahasiswa = document.getElementById("form-mahasiswa");
+
+      if (kategori === "siswa") {
+        formSiswa.style.display = "block";
+        formMahasiswa.style.display = "none";
+      } else if (kategori === "mahasiswa") {
+        formSiswa.style.display = "none";
+        formMahasiswa.style.display = "block";
+      } else {
+        formSiswa.style.display = "none";
+        formMahasiswa.style.display = "none";
+      }
+    }
+
+    // Nama file upload preview
+    const fotoInput = document.getElementById('foto');
+    const suratInput = document.getElementById('surat');
+    const fotoName = document.getElementById('foto-name');
+    const suratName = document.getElementById('surat-name');
+
+
+    // Validasi form
+    const form = document.getElementById('daftarForm');
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const inputs = form.querySelectorAll('[required]');
+      let valid = true;
+
+      inputs.forEach(input => {
+        if (!input.value) {
+          input.style.border = '2px solid #ffb703';
+          valid = false;
+        } else {
+          input.style.border = 'none';
+        }
+      });
+
+      if (!valid) {
+        alert('⚠️ Harap lengkapi semua kolom yang wajib diisi.');
+        return;
+      }
+
+      alert('✅ Form berhasil dikirim! Terima kasih sudah mendaftar.');
+      form.reset();
+      fotoName.textContent = '';
+      suratName.textContent = '';
+    });
+  </script>
+
+  
+  <div id="footer"></div>
+
+<script>
+  // Memuat footer
+  fetch('footer.html')
+    .then(response => {
+      if (!response.ok) throw new Error('File footer.html tidak ditemukan! Status: ' + response.status);
+      return response.text();
+    })
+    .then(data => {
+      document.getElementById("footer").innerHTML = data;
+      console.log('Footer dimuat berhasil!');
+    })
+    .catch(error => {
+      console.error('Error saat memuat footer:', error);
+      document.getElementById("footer").innerHTML = '<p>Error: Footer gagal dimuat. Periksa console untuk detail.</p>';
+    });
+</script>
+</body>
+</html>

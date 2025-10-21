@@ -1,0 +1,177 @@
+:root {
+  --brand: #EE9636;
+  --brand-dark: #8E2C18;
+  --bg: #F6E9E3;
+  --text: #2b1f1a;
+  --container: 1200px;
+  --shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* ==== Jarak agar tidak tertindih navbar ==== */
+main {
+  padding-top: 80px; /* sesuaikan dengan tinggi navbar kamu */
+}
+
+/* ==== Section umum ==== */
+.section {
+  padding: 80px 20px;
+  transition: all 0.3s ease-in-out;
+}
+
+.section.light {
+  background: #fff;
+}
+
+.container {
+  max-width: var(--container);
+  margin: auto;
+}
+
+.section-head {
+  text-align: center;
+  margin-bottom: 20px;
+  color: var(--brand-dark);
+  font-size: 2rem;
+  font-weight: 700;
+  position: relative;
+}
+
+.section-head::after {
+  content: "";
+  width: 60px;
+  height: 4px;
+  background: var(--brand);
+  display: block;
+  margin: 10px auto 0;
+  border-radius: 2px;
+}
+
+.section-desc {
+  text-align: center;
+  max-width: 700px;
+  margin: 0 auto 50px;
+  color: #5a463f;
+  font-size: 1rem;
+}
+
+/* ==== Program types ==== */
+.program-types {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 30px;
+}
+
+.program-card {
+  background: linear-gradient(135deg, var(--brand-dark), var(--brand));
+  color: #fff;
+  padding: 30px 25px;
+  border-radius: 16px;
+  box-shadow: var(--shadow);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.program-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.2);
+}
+
+.program-card h3 {
+  margin-bottom: 12px;
+  font-size: 1.3rem;
+}
+
+.program-card p {
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+/* ==== Alur ==== */
+.alur-list {
+  max-width: 800px;
+  margin: 0 auto;
+  list-style: decimal;
+  padding-left: 20px;
+  background: #fff;
+  border-radius: 12px;
+  padding: 25px 30px;
+  box-shadow: var(--shadow);
+}
+
+.alur-list li {
+  margin-bottom: 12px;
+  font-size: 1rem;
+}
+
+/* ==== Syarat ==== */
+.syarat-list {
+  max-width: 700px;
+  margin: 0 auto;
+  list-style: disc;
+  padding-left: 20px;
+  background: #fff;
+  border-radius: 12px;
+  padding: 25px 30px;
+  box-shadow: var(--shadow);
+}
+
+.syarat-list li {
+  margin-bottom: 10px;
+}
+
+/* ==== Hak & Kewajiban ==== */
+.hak-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 30px;
+  margin-top: 30px;
+}
+
+.hak-grid h3 {
+  color: var(--brand-dark);
+  margin-bottom: 12px;
+  font-size: 1.2rem;
+}
+
+.hak-grid ul {
+  list-style: disc;
+  padding-left: 20px;
+  background: #fff;
+  border-radius: 12px;
+  padding: 20px 25px;
+  box-shadow: var(--shadow);
+}
+
+.hak-grid li {
+  margin-bottom: 10px;
+}
+
+/* ==== Animasi Scroll ==== */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.section {
+  animation: fadeUp 0.8s ease-in-out both;
+}

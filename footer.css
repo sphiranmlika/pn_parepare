@@ -1,0 +1,163 @@
+.footer {
+  background-color: #8E2C18;
+  color: #fff;
+  padding: 60px 20px 20px;
+  font-family: 'Poppins', sans-serif;
+}
+
+.footer-container {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 30px;
+  max-width: 1200px;
+  margin: auto;
+}
+
+/* Judul Section */
+.footer-section h2 {
+  color: #fff;
+  margin-bottom: 20px;
+  font-size: 20px;
+  border-bottom: 2px solid #EE9636;
+  display: inline-block;
+  padding-bottom: 5px;
+}
+
+/* --- Bagian Logo & Deskripsi --- */
+.footer-logo-text {
+  display: flex;
+  align-items: center;
+  gap: 90px;
+  margin-bottom: 20px;
+}
+
+.footer-logo img {
+  width: 100px;
+  height: auto;
+}
+
+.footer-description h2 {
+  margin: 0;
+  font-size: 22px;
+  color: #fff;
+}
+
+.footer-description p {
+  margin-top: 5px;
+  font-size: 14px;
+  color: #fff;
+  line-height: 1.6;
+  max-width: 300px;
+}
+
+/* --- Sosial Media --- */
+.socials {
+  margin-top: 15px;
+}
+
+.socials a {
+  color: #fff;
+  font-size: 18px;
+  margin-right: 12px;
+  transition: all 0.3s;
+}
+
+.socials a:hover {
+  color: #EE9636;
+  transform: scale(1.2);
+}
+
+/* --- Navigasi Cepat dan Kontak --- */
+.footer-section ul {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-section ul li {
+  margin-bottom: 10px;
+  font-size: 14px;
+}
+
+.footer-section ul li a {
+  color: #fff;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+.footer-section ul li a:hover {
+  color: #EE9636;
+}
+
+.footer-section ul li i {
+  color: #fff;
+  margin-right: 8px;
+}
+
+/* --- Footer Bottom --- */
+.footer-bottom {
+  text-align: center;
+  border-top: 1px solid #EE9636;
+  padding-top: 15px;
+  margin-top: 30px;
+  font-size: 14px;
+  color: #fff;
+}
+
+/* === RESPONSIVE DESIGN === */
+
+/* Tablet (maksimal lebar 992px) */
+@media (max-width: 992px) {
+  .footer-container {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .footer-logo-text {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .footer-description p {
+    max-width: 500px;
+  }
+
+  .footer-section {
+    width: 100%;
+    max-width: 600px;
+  }
+}
+
+/* Mobile (maksimal lebar 600px) */
+@media (max-width: 600px) {
+  .footer {
+    padding: 40px 15px 15px;
+  }
+
+  .footer-logo img {
+    width: 80px;
+  }
+
+  .footer-section h2 {
+    font-size: 18px;
+  }
+
+  .footer-description h2 {
+    font-size: 20px;
+  }
+
+  .footer-description p {
+    font-size: 13px;
+    max-width: 100%;
+  }
+
+  .socials a {
+    font-size: 16px;
+    margin-right: 10px;
+  }
+
+  .footer-bottom {
+    font-size: 12px;
+  }
+}
