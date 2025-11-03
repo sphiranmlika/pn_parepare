@@ -1,3 +1,6 @@
+<?php
+
+?>
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -5,26 +8,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Daftar Sekarang - SIMAPARE</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-  <link rel="stylesheet" href="navbar.css">
+  <link rel="stylesheet" href="/css/navbar.css">
   <link rel="stylesheet" href="form.css" />
-  <link rel="stylesheet" href="footer.css" />
+  <link rel="stylesheet" href="/css/footer.css" />
 </head>
 <body>
 
-  <div id="navbar"></div>
-
-  <script>
-    fetch('navbar.html')
-      .then(r => {
-        if (!r.ok) throw new Error('File navbar.html tidak ditemukan! Status: ' + r.status);
-        return r.text();
-      })
-      .then(data => document.getElementById("navbar").innerHTML = data)
-      .catch(err => {
-        console.error(err);
-        document.getElementById("navbar").innerHTML = '<p>Error: Navbar gagal dimuat.</p>';
-      });
-  </script>
+  <!-- Include Navbar -->
+  <?php include 'navbar.php'; ?>
 
   <!-- FORM SECTION -->
   <section class="form-section">
@@ -157,19 +148,8 @@
     }
   </script>
 
-  <div id="footer"></div>
-  <script>
-    fetch('footer.html')
-      .then(r => {
-        if (!r.ok) throw new Error('Footer tidak ditemukan');
-        return r.text();
-      })
-      .then(data => document.getElementById("footer").innerHTML = data)
-      .catch(err => {
-        console.error(err);
-        document.getElementById("footer").innerHTML = '<p>Error: Footer gagal dimuat.</p>';
-      });
-  </script>
+  <!-- Include Footer -->
+  <?php include 'footer.php'; ?>
 
 </body>
 </html>

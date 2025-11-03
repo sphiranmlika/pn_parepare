@@ -1,13 +1,19 @@
+<?php
+// Memastikan file header dan footer bisa di-include
+?>
 <!DOCTYPE html>
 <html lang="id">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>SIMAPARE - Sistem Informasi Magang Pengadilan Negeri Parepare</title>
+
+  <!-- Styles -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-  <link rel="stylesheet" href="navbar.css">
-  <link rel="stylesheet" href="style.css" />
-  <link rel="stylesheet" href="footer.css" />
+  <link rel="stylesheet" href="css/navbar.css" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/footer.css" />
+
   <style>
     /* === FAQ Section === */
     .faq-section {
@@ -74,7 +80,7 @@
       padding: 15px 20px 20px;
     }
 
-    /* Panah ikon (chevron) */
+    /* Panah ikon */
     .faq-icon {
       width: 12px;
       height: 12px;
@@ -114,37 +120,16 @@
     }
   </style>
 </head>
+
 <body>
-  <div id="navbar"></div>
-
-  <script>
-    // Memuat navbar
-    fetch('navbar.html')
-      .then(response => {
-        if (!response.ok) {
-          throw new Error('File navbar.html tidak ditemukan! Status: ' + response.status);
-        }
-        return response.text();
-      })
-      .then(data => {
-        document.getElementById("navbar").innerHTML = data;
-        console.log('Navbar dimuat berhasil!');
-      })
-      .catch(error => {
-        console.error('Error saat memuat navbar:', error);
-        document.getElementById("navbar").innerHTML = '<p>Error: Navbar gagal dimuat. Periksa console untuk detail.</p>';
-      });
-
-    function toggleMenu() {
-      document.querySelector('.nav-menu').classList.toggle('active');
-    }
-  </script>
+  <!-- Navbar -->
+  <?php include 'navbar.php'; ?>
 
   <!-- Hero Section -->
   <section class="hero" id="beranda">
     <div class="overlay"></div>
     <div class="hero-content">
-      <img src="logo.png" alt="Logo Pengadilan Negeri Parepare" class="hero-logo" />
+      <img src="images/logo.png" alt="Logo Pengadilan Negeri Parepare" class="hero-logo" />
       <h2>SELAMAT DATANG DI SIMAPARE</h2>
       <h3>Sistem Informasi Magang Pengadilan Negeri Parepare</h3>
       <p>
@@ -160,7 +145,7 @@
   <section class="about-section" id="tentang">
     <div class="about-container">
       <h1>Tentang SIMAPARE</h1>
-      <p>SIMAPARE (Sistem Informasi Magang Pengadilan Negeri Parepare) merupakan inovasi digital yang dikembangkan sebagai platform resmi untuk mempermudah proses pendaftaran, pemantauan, dan pengelolaan kegiatan magang di lingkungan Pengadilan Negeri Parepare. Sistem ini hadir sebagai bentuk komitmen lembaga peradilan dalam mewujudkan pelayanan publik yang modern, transparan, dan berbasis teknologi informasi.</p>
+    <p>SIMAPARE (Sistem Informasi Magang Pengadilan Negeri Parepare) merupakan inovasi digital yang dikembangkan sebagai platform resmi untuk mempermudah proses pendaftaran, pemantauan, dan pengelolaan kegiatan magang di lingkungan Pengadilan Negeri Parepare. Sistem ini hadir sebagai bentuk komitmen lembaga peradilan dalam mewujudkan pelayanan publik yang modern, transparan, dan berbasis teknologi informasi.</p>
       
       <p>Melalui SIMAPARE, pelajar dan mahasiswa yang berminat melaksanakan magang di Pengadilan Negeri Parepare dapat melakukan seluruh proses administrasi secara terpadu dan efisien, mulai dari pendaftaran, pengunggahan dokumen, hingga pemantauan status pengajuan. Selain itu, sistem ini juga menyediakan berbagai informasi penting seperti jadwal pelaksanaan magang, ketentuan administrasi, panduan kegiatan, serta pengumuman terbaru yang dapat diakses kapan saja dan di mana saja.</p>
       
@@ -169,7 +154,6 @@
       <p>Lebih dari sekadar sistem pendaftaran, SIMAPARE juga menjadi sarana komunikasi efektif antara pihak pengadilan dan peserta magang. Dengan tampilan antarmuka yang sederhana, informatif, dan mudah digunakan, SIMAPARE memperkuat semangat transformasi digital di bidang pelayanan publik, sejalan dengan upaya pemerintah dalam menerapkan Sistem Pemerintahan Berbasis Elektronik (SPBE).</p>
       
       <p>Melalui SIMAPARE, Pengadilan Negeri Parepare berkomitmen untuk terus berinovasi dalam memberikan layanan magang yang unggul, adaptif terhadap perkembangan teknologi, serta mampu mencetak generasi muda yang berintegritas dan memahami nilai-nilai keadilan dalam praktik nyata.</p>
-      
     </div>
   </section>
 
@@ -178,62 +162,48 @@
     <div class="faq-container">
       <h2>Pertanyaan yang Sering Diajukan (FAQ)</h2>
 
-      <div class="faq-item">
-        <div class="faq-question">Bagaimana cara mendaftar magang melalui SIMAPARE?
-          <span class="faq-icon"></span>
-        </div>
-        <div class="faq-answer">
-          Calon peserta magang dapat mengakses halaman <b>Formulir Pendaftaran</b> di website SIMAPARE, kemudian mengisi data diri, mengunggah dokumen persyaratan seperti surat pengantar dan foto diri, serta menunggu konfirmasi dari pihak Pengadilan Negeri Parepare.
-        </div>
-      </div>
+      <?php
+      $faqs = [
+        [
+          "q" => "Bagaimana cara mendaftar magang melalui SIMAPARE?",
+          "a" => "Calon peserta magang dapat mengakses halaman <b>Formulir Pendaftaran</b> di website SIMAPARE, kemudian mengisi data diri, mengunggah dokumen persyaratan, serta menunggu konfirmasi dari pihak Pengadilan Negeri Parepare."
+        ],
+        [
+          "q" => "Dokumen apa saja yang perlu disiapkan untuk pendaftaran magang?",
+          "a" => "Surat pengantar resmi dari institusi pendidikan, pas foto terbaru, dan CV. Pastikan seluruh dokumen dalam format PDF atau JPG."
+        ],
+        [
+          "q" => "Berapa lama waktu pelaksanaan magang di Pengadilan Negeri Parepare?",
+          "a" => "Durasi magang berlangsung 1–3 bulan, tergantung kebijakan dan kesepakatan dengan pihak pengadilan."
+        ],
+        [
+          "q" => "Apakah peserta magang mendapatkan surat keterangan setelah selesai?",
+          "a" => "Ya, peserta akan memperoleh surat keterangan resmi dari Pengadilan Negeri Parepare setelah menyelesaikan kegiatan magang."
+        ],
+        [
+          "q" => "Apakah SIMAPARE hanya untuk mahasiswa?",
+          "a" => "Tidak. SIMAPARE juga dapat digunakan oleh pelajar SMK atau lembaga pendidikan lain yang bekerja sama dengan Pengadilan Negeri Parepare."
+        ]
+      ];
 
-      <div class="faq-item">
-        <div class="faq-question">Dokumen apa saja yang perlu disiapkan untuk pendaftaran magang?
-          <span class="faq-icon"></span>
-        </div>
-        <div class="faq-answer">
-          Dokumen yang diperlukan antara lain: surat pengantar resmi dari institusi pendidikan, pas foto terbaru, dan curriculum vitae (CV). Pastikan seluruh dokumen dalam format PDF atau JPG dengan ukuran sesuai ketentuan.
-        </div>
-      </div>
-
-      <div class="faq-item">
-        <div class="faq-question">Berapa lama waktu pelaksanaan magang di Pengadilan Negeri Parepare?
-          <span class="faq-icon"></span>
-        </div>
-        <div class="faq-answer">
-          Durasi magang umumnya berlangsung selama 1 hingga 3 bulan, tergantung kebijakan dan kesepakatan antara peserta, institusi pendidikan, dan pihak Pengadilan Negeri Parepare.
-        </div>
-      </div>
-
-      <div class="faq-item">
-        <div class="faq-question">Apakah peserta magang mendapatkan surat keterangan setelah selesai?
-          <span class="faq-icon"></span>
-        </div>
-        <div class="faq-answer">
-          Ya, setelah menyelesaikan seluruh kegiatan magang dan memenuhi ketentuan yang berlaku, peserta akan memperoleh surat keterangan resmi dari Pengadilan Negeri Parepare sebagai bukti pelaksanaan magang.
-        </div>
-      </div>
-
-      <div class="faq-item">
-        <div class="faq-question">Apakah SIMAPARE hanya untuk mahasiswa?
-          <span class="faq-icon"></span>
-        </div>
-        <div class="faq-answer">
-          Tidak. SIMAPARE dapat digunakan oleh mahasiswa, pelajar SMK, atau lembaga pendidikan lain yang memiliki kerja sama dengan Pengadilan Negeri Parepare dalam program magang.
-        </div>
-      </div>
+      foreach ($faqs as $faq) {
+        echo '
+        <div class="faq-item">
+          <div class="faq-question">'. $faq['q'] .'<span class="faq-icon"></span></div>
+          <div class="faq-answer">'. $faq['a'] .'</div>
+        </div>';
+      }
+      ?>
     </div>
   </section>
 
   <!-- Tombol Back to Top -->
   <button id="backToTop" title="Kembali ke Atas">↑</button>
 
+  <!-- Footer -->
+  <?php include 'footer.php'; ?>
 
-
-
-
-
-
+  <!-- Script -->
   <script>
     // Script FAQ
     const faqItems = document.querySelectorAll('.faq-item');
@@ -250,35 +220,11 @@
     // Script Back to Top
     const backToTop = document.getElementById('backToTop');
     window.addEventListener('scroll', () => {
-      if (window.scrollY > 400) {
-        backToTop.style.display = 'block';
-      } else {
-        backToTop.style.display = 'none';
-      }
+      backToTop.style.display = window.scrollY > 400 ? 'block' : 'none';
     });
-
     backToTop.addEventListener('click', () => {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
   </script>
-
-  <div id="footer"></div>
-
-<script>
-  // Memuat footer
-  fetch('footer.html')
-    .then(response => {
-      if (!response.ok) throw new Error('File footer.html tidak ditemukan! Status: ' + response.status);
-      return response.text();
-    })
-    .then(data => {
-      document.getElementById("footer").innerHTML = data;
-      console.log('Footer dimuat berhasil!');
-    })
-    .catch(error => {
-      console.error('Error saat memuat footer:', error);
-      document.getElementById("footer").innerHTML = '<p>Error: Footer gagal dimuat. Periksa console untuk detail.</p>';
-    });
-</script>
 </body>
 </html>

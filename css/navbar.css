@@ -1,4 +1,4 @@
-header {
+.navbar {
   position: fixed;
   top: 0;
   left: 0;
@@ -8,18 +8,19 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px 20px;  /* Kurangi padding untuk mobile */
+  padding: 10px 20px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   z-index: 1000;
   height: 80px;
   transition: padding 0.4s ease, height 0.4s ease;
 }
 
+/* === Logo === */
 .logo {
   display: flex;
   align-items: center;
-  flex-shrink: 0;
   gap: 10px;
+  flex-shrink: 0;
 }
 
 .logo img {
@@ -31,6 +32,9 @@ header {
 .logo-link {
   text-decoration: none;
   color: inherit;
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
 .logo-text h1 {
@@ -47,6 +51,7 @@ header {
   text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
 }
 
+/* === Menu Navigasi === */
 .nav-menu {
   display: flex;
   align-items: center;
@@ -62,38 +67,16 @@ header {
   font-size: 16px;
   padding: 8px 0;
   transition: all 0.3s ease;
-  opacity: 1;
   text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
-  position: relative;
 }
 
 .nav-menu a:hover {
   color: #8E2C18;
 }
 
-.login-btn {
-  background-color: white;
-  color: #8E2C18;
-  border: none;
-  padding: 8px 20px;
-  border-radius: 25px;
-  font-weight: 700;
-  font-size: 14px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  flex-shrink: 0;
-  margin: 0;
-}
-
-.login-btn:hover {
-  background-color: #8E2C18;
-  color: white;
-  transform: translateY(-1px);
-  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-}
-
+/* === Tombol Hamburger === */
 .hamburger {
-  display: none;  /* Sembunyikan di desktop */
+  display: none;
   flex-direction: column;
   justify-content: space-around;
   width: 30px;
@@ -102,6 +85,7 @@ header {
   border: none;
   cursor: pointer;
   padding: 0;
+  z-index: 1100;
 }
 
 .hamburger span {
@@ -124,42 +108,36 @@ header {
   transform: rotate(45deg) translate(-5px, -6px);
 }
 
-/* Media Query untuk Responsive */
+/* === RESPONSIVE === */
 @media (max-width: 768px) {
-  header {
-    padding: 10px 15px;  /* Lebih ringkas */
-    justify-content: space-between;  /* Pastikan logo dan hamburger sejajar */
+  .navbar {
+    padding: 10px 15px;
   }
 
   .nav-menu {
-    display: none;  /* Sembunyikan menu secara default di mobile */
-    flex-direction: column;  /* Jadikan vertical */
-    position: absolute;  /* Posisi absolute untuk dropdown */
-    top: 80px;  /* Di bawah header */
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 80px;
     left: 0;
     width: 100%;
     background-color: #EE9636;
-    align-items: center;  /* Center items */
-    gap: 20px;  /* Jarak antar item */
-    padding: 20px 0;  /* Padding untuk menu */
+    align-items: center;
+    gap: 20px;
+    padding: 20px 0;
   }
 
   .nav-menu.active {
-    display: flex;  /* Tampilkan saat active */
+    display: flex;
   }
 
   .nav-menu a {
-    font-size: 18px;  /* Besarkan font untuk mobile */
-    width: 80%;  /* Lebar link */
+    font-size: 18px;
+    width: 80%;
     text-align: center;
   }
 
-  .login-btn {
-    width: 80%;  /* Lebar button di mobile */
-    margin-top: 10px;
-  }
-
   .hamburger {
-    display: flex;  /* Tampilkan hamburger di mobile */
+    display: flex;
   }
 }

@@ -1,0 +1,51 @@
+<footer class="footer">
+  <div class="footer-container">
+    <!-- Bagian Logo & Deskripsi -->
+    <div class="footer-section about">
+      <div class="footer-logo-text">
+        <div class="footer-logo">
+          <img src="/images/logo.png" alt="Logo Pengadilan Negeri Parepare">
+        </div>
+        <div class="footer-description">
+          <h2>SIMAPARE</h2>
+          <p>
+            SIMAPARE (Sistem Informasi Magang Pengadilan Negeri Parepare) hadir untuk 
+            mempermudah proses pendaftaran, pemantauan, dan pengelolaan magang secara 
+            transparan, efisien, dan terintegrasi.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Navigasi Cepat -->
+    <div class="footer-section links">
+      <h2>Tautan Cepat</h2>
+      <ul>
+        <li><a href="#beranda">Beranda</a></li>
+        <li><a href="#tentang">Tentang</a></li>
+        <li><a href="informasi.php">Program Magang</a></li>
+        <li><a href="#faq">FAQ</a></li>
+      </ul>
+    </div>
+
+    <!-- Informasi Kontak -->
+    <div class="footer-section contact">
+      <h2>Hubungi Kami</h2>
+      <ul>
+        <li><i class="fas fa-map-marker-alt"></i> Jl. Jenderal Sudirman No. 45, Parepare</li>
+        <li><i class="fas fa-phone"></i> (0421) 234567</li>
+        <li><i class="fas fa-envelope"></i> simapare@pn-parepare.go.id</li>
+      </ul>
+      <div class="socials">
+        <a href="#"><i class="fab fa-facebook-f"></i></a>
+        <a href="#"><i class="fab fa-twitter"></i></a>
+        <a href="#"><i class="fab fa-instagram"></i></a>
+        <a href="#"><i class="fab fa-linkedin"></i></a>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <p>&copy; <?php echo date('Y'); ?> <strong>SIMAPARE</strong>. Semua Hak Dilindungi.</p>
+  </div>
+</footer>
