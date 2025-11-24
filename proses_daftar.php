@@ -78,7 +78,7 @@ if (move_uploaded_file($_FILES["foto"]["tmp_name"], $foto_path) &&
   );
 
   if ($stmt->execute()) {
-    echo "<script>alert('Pendaftaran berhasil dikirim!'); window.location='index.html';</script>";
+    echo "<script>alert('Pendaftaran berhasil dikirim!'); window.location='index.php';</script>";
   } else {
     echo "<script>alert('Gagal menyimpan ke database!'); history.back();</script>";
   }
