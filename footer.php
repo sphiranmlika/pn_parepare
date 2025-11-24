@@ -32,15 +32,27 @@
     <div class="footer-section contact">
       <h2>Hubungi Kami</h2>
       <ul>
-        <li><i class="fas fa-map-marker-alt"></i> Jl. Jenderal Sudirman No. 45, Parepare</li>
-        <li><i class="fas fa-phone"></i> (0421) 234567</li>
-        <li><i class="fas fa-envelope"></i> simapare@pn-parepare.go.id</li>
+        <li>
+          <a href="https://maps.app.goo.gl/6kEKmw237ghfYSHA8" target="_blank">
+            <i class="fas fa-map-marker-alt"></i> Jl. Jenderal Sudirman No.39, Kota Pare-Pare
+          </a>
+        </li>
+
+        <li>
+          <a href="tel:+6242125807">
+            <i class="fas fa-phone"></i> +62421 25807
+          </a>
+        </li>
+
+        <li>
+          <a href="mailto:pnparepare@gmail.com">
+            <i class="fas fa-envelope"></i> pnparepare@gmail.com
+          </a>
+        </li>
       </ul>
       <div class="socials">
-        <a href="#"><i class="fab fa-facebook-f"></i></a>
-        <a href="#"><i class="fab fa-twitter"></i></a>
-        <a href="#"><i class="fab fa-instagram"></i></a>
-        <a href="#"><i class="fab fa-linkedin"></i></a>
+        <a href="https://youtube.com/@pn_parepare?si=kcMLl_ITn9lQmhrm" target="_blank" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+        <a href="https://www.instagram.com/pn_parepare?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="><i class="fab fa-instagram"></i></a>
       </div>
     </div>
   </div>

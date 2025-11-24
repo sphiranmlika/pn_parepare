@@ -36,7 +36,7 @@ $original = $stored;     // karena belum pakai nama asli terpisah
 $fileType = mime_content_type('uploads/' . $stored);
 
 // => 4) Path file di server (pastikan path ini benar)
-$baseDir = __DIR__ . '/uploads/surat/'; // atau path di luar webroot jika ada
+$baseDir = __DIR__ . '/uploads/'; // atau path di luar webroot jika ada
 $filePath = $baseDir . $stored;
 
 if (!file_exists($filePath)) {

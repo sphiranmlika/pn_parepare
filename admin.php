@@ -9,7 +9,28 @@ if (!isset($_SESSION['admin'])) {
 }
 
 // Ambil data pendaftar
-$result = $conn->query("SELECT * FROM pendaftar ORDER BY tanggal_daftar DESC");
+$filter = isset($_GET['filter']) ? strtolower(trim($_GET['filter'])) : 'all';
+$allowed = ['all','siswa','mahasiswa'];
+if (!in_array($filter, $allowed)) $filter = 'all';
+
+// Statistik umum
+$totalQ = $conn->query("SELECT COUNT(*) AS c FROM pendaftar");
+$total = (int)($totalQ->fetch_assoc()['c'] ?? 0);
+$waitingQ = $conn->query("SELECT COUNT(*) AS c FROM pendaftar WHERE status IS NULL OR status = '' OR LOWER(status) = 'menunggu'");
+$waiting = (int)($waitingQ->fetch_assoc()['c'] ?? 0);
+$acceptedQ = $conn->query("SELECT COUNT(*) AS c FROM pendaftar WHERE LOWER(status) = 'diterima'");
+$accepted = (int)($acceptedQ->fetch_assoc()['c'] ?? 0);
+$rejectedQ = $conn->query("SELECT COUNT(*) AS c FROM pendaftar WHERE LOWER(status) = 'ditolak'");
+$rejected = (int)($rejectedQ->fetch_assoc()['c'] ?? 0);
+
+// Ambil data pendaftar sesuai filter
+if ($filter === 'all') {
+  $result = $conn->query("SELECT * FROM pendaftar ORDER BY kategori ASC, tanggal_daftar DESC");
+} else {
+  $f = $conn->real_escape_string($filter);
+  $result = $conn->query("SELECT * FROM pendaftar WHERE kategori='{$f}' ORDER BY tanggal_daftar DESC");
+}
+$lastKategori = null;
 ?>
 
 <!DOCTYPE html>
@@ -78,6 +99,13 @@ $result = $conn->query("SELECT * FROM pendaftar ORDER BY tanggal_daftar DESC");
       padding: 8px 12px;
       border-radius: 5px;
     }
+    .category-row td {
+      background-color: #eef6ff;
+      font-weight: 700;
+      text-align: left;
+      padding: 10px;
+      border: 1px solid #ddd;
+    }
   </style>
 </head>
 <body>
@@ -90,6 +118,28 @@ $result = $conn->query("SELECT * FROM pendaftar ORDER BY tanggal_daftar DESC");
     <div class="alert alert-error">❌ Akses tidak valid.</div>
   <?php endif; ?>
 
+  <style>
+    .stats { display:flex; gap:12px; margin-top:10px; margin-bottom:12px }
+    .stat { background:#fff; padding:10px 14px; border-radius:6px; box-shadow:0 1px 3px rgba(0,0,0,.06); }
+    .filters { margin-top:8px; margin-bottom:8px }
+    .filter-btn { display:inline-block; padding:6px 10px; border-radius:5px; text-decoration:none; background:#e9ecef; color:#333; margin-right:6px }
+    .filter-btn.active { background:#4CAF50; color:#fff }
+  </style>
+
+  <div class="filters">
+    <?php $baseUrl = strtok($_SERVER["REQUEST_URI"], '?'); ?>
+    <a href="<?= $baseUrl ?>?filter=all" class="filter-btn <?= $filter === 'all' ? 'active' : '' ?>">Semua</a>
+    <a href="<?= $baseUrl ?>?filter=mahasiswa" class="filter-btn <?= $filter === 'mahasiswa' ? 'active' : '' ?>">Mahasiswa</a>
+    <a href="<?= $baseUrl ?>?filter=siswa" class="filter-btn <?= $filter === 'siswa' ? 'active' : '' ?>">Siswa</a>
+  </div>
+
+  <div class="stats">
+    <div class="stat"><strong>Total:</strong> <?= $total ?></div>
+    <div class="stat"><strong>Menunggu:</strong> <?= $waiting ?></div>
+    <div class="stat"><strong>Diterima:</strong> <?= $accepted ?></div>
+    <div class="stat"><strong>Ditolak:</strong> <?= $rejected ?></div>
+  </div>
+
   <table>
     <tr>
       <th>Nama</th>
@@ -98,10 +148,13 @@ $result = $conn->query("SELECT * FROM pendaftar ORDER BY tanggal_daftar DESC");
       <th>Telepon</th>
       <th>Tanggal</th>
       <th>Status</th>
-      <th>Surat</th>
+      <th>Detail</th>
       <th>Aksi</th>
     </tr>
     <?php while ($row = $result->fetch_assoc()): ?>
+      <?php if ($lastKategori !== $row['kategori']): ?>
+        <tr class="category-row"><td colspan="8"><?= htmlspecialchars(ucfirst($row['kategori'])) ?></td></tr>
+        <?php $lastKategori = $row['kategori']; endif; ?>
     <tr>
       <td><?= htmlspecialchars($row['nama']) ?></td>
       <td><?= ucfirst(htmlspecialchars($row['kategori'])) ?></td>
@@ -109,13 +162,18 @@ $result = $conn->query("SELECT * FROM pendaftar ORDER BY tanggal_daftar DESC");
       <td><?= htmlspecialchars($row['telepon']) ?></td>
       <td><?= htmlspecialchars($row['tanggal_mulai']) ?> → <?= htmlspecialchars($row['tanggal_selesai']) ?></td>
       <td><?= htmlspecialchars($row['status'] ?? 'Menunggu') ?></td>
-      <td><a href="download.php?id=<?= (int)$row['id'] ?>" target="_blank">📄 Lihat / Unduh</a></td>
+      <td><a href="detail.php?id=<?= (int)$row['id'] ?>" class="btn">Lihat</a></td>
       <td>
-        <form action="update_status.php" method="post" style="display:inline;">
-          <input type="hidden" name="id" value="<?= $row['id'] ?>">
-          <button name="status" value="Diterima" class="btn btn-acc">Terima</button>
-          <button name="status" value="Ditolak" class="btn btn-rej">Tolak</button>
-        </form>
+        <?php $s = strtolower(trim($row['status'] ?? ''));
+          if ($s === 'diterima' || $s === 'ditolak'): ?>
+            <span><?= htmlspecialchars(ucfirst($row['status'])) ?></span>
+          <?php else: ?>
+            <form action="update_status.php" method="post" style="display:inline;">
+              <input type="hidden" name="id" value="<?= $row['id'] ?>">
+              <button name="status" value="Diterima" class="btn btn-acc">Terima</button>
+              <button name="status" value="Ditolak" class="btn btn-rej">Tolak</button>
+            </form>
+          <?php endif; ?>
       </td>
     </tr>
     <?php endwhile; ?>
