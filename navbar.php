@@ -12,7 +12,7 @@
   <ul class="nav-menu">
     <li><a href="form.php">Daftar Sekarang</a></li>
     <li><a href="informasi.php">Informasi Program</a></li>
-    <li><a href="login.php">Login</a></li>
+    <li><a href="login.php" class="btn-login">Login</a></li>
   </ul>
 
   <button class="hamburger" onclick="toggleMenu()">

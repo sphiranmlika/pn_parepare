@@ -37,146 +37,145 @@ $lastKategori = null;
 <html lang="id">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Admin SIMAPARE</title>
   <link rel="stylesheet" href="assets/form.css">
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 30px;
-      background-color: #f8f9fa;
-    }
-    h2 { color: #333; }
-    .alert {
-      padding: 10px;
-      border-radius: 5px;
-      margin-bottom: 15px;
-      width: 50%;
-    }
-    .alert-success {
-      background-color: #d4edda;
-      color: #155724;
-      border: 1px solid #c3e6cb;
-    }
-    .alert-error {
-      background-color: #f8d7da;
-      color: #721c24;
-      border: 1px solid #f5c6cb;
-    }
-    table { 
-      width: 100%; 
-      border-collapse: collapse; 
-      margin-top: 20px; 
-      background-color: #fff;
-    }
-    th, td { 
-      border: 1px solid #ddd; 
-      padding: 10px; 
-      text-align: center; 
-    }
-    th { 
-      background-color: #4CAF50; 
-      color: white; 
-    }
-    .btn { 
-      padding: 5px 10px; 
-      border: none; 
-      border-radius: 5px; 
-      cursor: pointer; 
-    }
-    .btn-acc { 
-      background-color: #2e8b57; 
-      color: white; 
-    }
-    .btn-rej { 
-      background-color: #dc3545; 
-      color: white; 
-    }
-    .logout {
-      float: right;
-      text-decoration: none;
-      background-color: #f44336;
-      color: white;
-      padding: 8px 12px;
-      border-radius: 5px;
-    }
-    .category-row td {
-      background-color: #eef6ff;
-      font-weight: 700;
-      text-align: left;
-      padding: 10px;
-      border: 1px solid #ddd;
-    }
-  </style>
+  <link rel="stylesheet" href="css/admin.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-  <h2>📋 Daftar Pendaftar SIMAPARE</h2>
-  <a href="logout.php" class="logout">Logout</a>
+  <div class="container">
+    <header class="topbar">
+      <div>
+        <h1>SIMAPARE Admin</h1>
+        <p class="subtitle">Kelola & Monitor Pendaftar Dengan Mudah</p>
+      </div>
+      <div class="top-actions">
+        <a href="logout.php" class="btn ghost">Logout</a>
+      </div>
+    </header>
 
-  <?php if (isset($_GET['status']) && $_GET['status'] == 'updated'): ?>
-    <div class="alert alert-success">✅ Status pendaftar berhasil diperbarui.</div>
-  <?php elseif (isset($_GET['status']) && $_GET['status'] == 'invalid'): ?>
-    <div class="alert alert-error">❌ Akses tidak valid.</div>
-  <?php endif; ?>
+    <?php if (isset($_GET['status']) && $_GET['status'] == 'updated'): ?>
+      <div class="alert success">Status pendaftar berhasil diperbarui.</div>
+    <?php elseif (isset($_GET['status']) && $_GET['status'] == 'invalid'): ?>
+      <div class="alert error">Akses tidak valid.</div>
+    <?php endif; ?>
 
-  <style>
-    .stats { display:flex; gap:12px; margin-top:10px; margin-bottom:12px }
-    .stat { background:#fff; padding:10px 14px; border-radius:6px; box-shadow:0 1px 3px rgba(0,0,0,.06); }
-    .filters { margin-top:8px; margin-bottom:8px }
-    .filter-btn { display:inline-block; padding:6px 10px; border-radius:5px; text-decoration:none; background:#e9ecef; color:#333; margin-right:6px }
-    .filter-btn.active { background:#4CAF50; color:#fff }
-  </style>
-
-  <div class="filters">
+    <section class="controls">
+      <div class="filters">
     <?php $baseUrl = strtok($_SERVER["REQUEST_URI"], '?'); ?>
     <a href="<?= $baseUrl ?>?filter=all" class="filter-btn <?= $filter === 'all' ? 'active' : '' ?>">Semua</a>
     <a href="<?= $baseUrl ?>?filter=mahasiswa" class="filter-btn <?= $filter === 'mahasiswa' ? 'active' : '' ?>">Mahasiswa</a>
     <a href="<?= $baseUrl ?>?filter=siswa" class="filter-btn <?= $filter === 'siswa' ? 'active' : '' ?>">Siswa</a>
-  </div>
+      </div>
 
-  <div class="stats">
-    <div class="stat"><strong>Total:</strong> <?= $total ?></div>
-    <div class="stat"><strong>Menunggu:</strong> <?= $waiting ?></div>
-    <div class="stat"><strong>Diterima:</strong> <?= $accepted ?></div>
-    <div class="stat"><strong>Ditolak:</strong> <?= $rejected ?></div>
-  </div>
+      <div class="stats">
+        <div class="stat-card"><div class="stat-title">Total</div><div class="stat-value"><?= $total ?></div></div>
+        <div class="stat-card"><div class="stat-title">Menunggu</div><div class="stat-value highlight"><?= $waiting ?></div></div>
+        <div class="stat-card"><div class="stat-title">Diterima</div><div class="stat-value ok"><?= $accepted ?></div></div>
+        <div class="stat-card"><div class="stat-title">Ditolak</div><div class="stat-value bad"><?= $rejected ?></div></div>
+      </div>
+    </section>
 
-  <table>
-    <tr>
-      <th>Nama</th>
-      <th>Kategori</th>
-      <th>Email</th>
-      <th>Telepon</th>
-      <th>Tanggal</th>
-      <th>Status</th>
-      <th>Detail</th>
-      <th>Aksi</th>
-    </tr>
-    <?php while ($row = $result->fetch_assoc()): ?>
-      <?php if ($lastKategori !== $row['kategori']): ?>
-        <tr class="category-row"><td colspan="8"><?= htmlspecialchars(ucfirst($row['kategori'])) ?></td></tr>
-        <?php $lastKategori = $row['kategori']; endif; ?>
-    <tr>
-      <td><?= htmlspecialchars($row['nama']) ?></td>
-      <td><?= ucfirst(htmlspecialchars($row['kategori'])) ?></td>
-      <td><?= htmlspecialchars($row['email']) ?></td>
-      <td><?= htmlspecialchars($row['telepon']) ?></td>
-      <td><?= htmlspecialchars($row['tanggal_mulai']) ?> → <?= htmlspecialchars($row['tanggal_selesai']) ?></td>
-      <td><?= htmlspecialchars($row['status'] ?? 'Menunggu') ?></td>
-      <td><a href="detail.php?id=<?= (int)$row['id'] ?>" class="btn">Lihat</a></td>
-      <td>
-        <?php $s = strtolower(trim($row['status'] ?? ''));
-          if ($s === 'diterima' || $s === 'ditolak'): ?>
-            <span><?= htmlspecialchars(ucfirst($row['status'])) ?></span>
-          <?php else: ?>
-            <form action="update_status.php" method="post" style="display:inline;">
-              <input type="hidden" name="id" value="<?= $row['id'] ?>">
-              <button name="status" value="Diterima" class="btn btn-acc">Terima</button>
-              <button name="status" value="Ditolak" class="btn btn-rej">Tolak</button>
-            </form>
-          <?php endif; ?>
-      </td>
-    </tr>
-    <?php endwhile; ?>
-  </table>
+    <section class="table-wrap">
+      <div class="table-responsive">
+        <table class="table styled">
+          <thead>
+            <tr>
+              <th>Nama</th>
+              <th>Kategori</th>
+              <th>Email</th>
+              <th>Telepon</th>
+              <th>Tanggal</th>
+              <th>Status</th>
+              <th>Detail</th>
+              <th>Aksi</th>
+            </tr>
+          </thead>
+          <tbody>
+          <?php while ($row = $result->fetch_assoc()): ?>
+            <?php if ($lastKategori !== $row['kategori']): ?>
+              <tr class="category-row"><td colspan="8"><?= htmlspecialchars(ucfirst($row['kategori'])) ?></td></tr>
+              <?php $lastKategori = $row['kategori']; endif; ?>
+            <?php
+              // prepare initials and searchable text
+              $parts = preg_split('/\s+/', trim($row['nama']));
+              $initials = '';
+              if (!empty($parts)) {
+                $initials .= strtoupper(substr($parts[0],0,1));
+                if (isset($parts[1])) $initials .= strtoupper(substr($parts[1],0,1));
+              }
+              $searchable = htmlspecialchars(strtolower($row['nama'].' '.$row['email'].' '.$row['telepon'].' '.$row['kategori']));
+            ?>
+            <tr data-search="<?= $searchable ?>">
+              <td data-label="Nama">
+                <div class="cell-name">
+                  <div class="avatar"><?= $initials ?></div>
+                  <div class="name-block">
+                    <div class="name"><?= htmlspecialchars($row['nama']) ?></div>
+                    <div class="small muted"><?= htmlspecialchars($row['email']) ?></div>
+                  </div>
+                </div>
+              </td>
+              <td data-label="Kategori"><?= ucfirst(htmlspecialchars($row['kategori'])) ?></td>
+              <td data-label="Email"><?= htmlspecialchars($row['email']) ?></td>
+              <td data-label="Telepon"><?= htmlspecialchars($row['telepon']) ?></td>
+              <td data-label="Tanggal"><?= htmlspecialchars($row['tanggal_mulai']) ?> → <?= htmlspecialchars($row['tanggal_selesai']) ?></td>
+              <td data-label="Status">
+                <?php $s = strtolower(trim($row['status'] ?? ''));
+                  if ($s === 'diterima'): ?>
+                    <span class="badge ok">Diterima</span>
+                  <?php elseif ($s === 'ditolak'): ?>
+                    <span class="badge bad">Ditolak</span>
+                  <?php else: ?>
+                    <span class="badge pending">Menunggu</span>
+                  <?php endif; ?>
+              </td>
+              <td data-label="Detail"><a href="detail.php?id=<?= (int)$row['id'] ?>" class="btn small">Lihat</a></td>
+              <td data-label="Aksi">
+                <?php if ($s === 'diterima' || $s === 'ditolak'): ?>
+                  <span class="muted"><?= htmlspecialchars(ucfirst($row['status'])) ?></span>
+                <?php else: ?>
+                  <form action="update_status.php" method="post" class="action-form confirm-form">
+                    <input type="hidden" name="id" value="<?= $row['id'] ?>">
+                    <button name="status" value="Diterima" class="btn success">✔</button>
+                    <button name="status" value="Ditolak" class="btn danger">✖</button>
+                  </form>
+                <?php endif; ?>
+              </td>
+            </tr>
+          <?php endwhile; ?>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </div>
+  <script>
+    // Client-side search filter
+    (function(){
+      const input = document.getElementById('tableSearch');
+      if (!input) return;
+      const tbody = document.querySelector('.table.styled tbody');
+      input.addEventListener('input', function(e){
+        const q = e.target.value.trim().toLowerCase();
+        const rows = tbody.querySelectorAll('tr');
+        rows.forEach(r => {
+          // skip category rows
+          if (r.classList.contains('category-row')) { r.style.display = ''; return; }
+          const s = r.getAttribute('data-search') || r.textContent.toLowerCase();
+          r.style.display = q === '' || s.indexOf(q) !== -1 ? '' : 'none';
+        });
+      });
+
+      // confirm forms
+      document.querySelectorAll('.confirm-form').forEach(form => {
+        form.addEventListener('submit', function(ev){
+          const btn = ev.submitter || form.querySelector('button');
+          const status = btn ? btn.value : '';
+          if (!confirm('Ubah status pendaftar menjadi "' + status + '"?')) ev.preventDefault();
+        });
+      });
+    })();
+  </script>
 </body>
 </html>
